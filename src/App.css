@@ -1,38 +1,136 @@
-.App {
-  text-align: center;
+body,html{
+  font-family: "Catamaran", serif;
+  scroll-behavior: smooth;
+  color: black;
 }
 
-.App-logo {
-  height: 40vmin;
+.movies_card .title {
+font-size: 20px;
+font-weight: 600;
+}
+.movies_card img{
+  height: 310px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px 8px 0px 0px;
+}
+.movies_card{
+  -webkit-box-shadow: 0 50px 80px 0 rgb(0 11 40 / 8%);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  cursor: pointer;
+}
+
+.movies_row {
   pointer-events: none;
+  transition: all 0.4s;
+ }
+ 
+ .movies_list {
+     pointer-events: auto;
+     transform: scale(1);
+     transition: all 0.4s;
+ }
+ 
+     .movies_list:hover {
+         opacity: 1;
+         transform: scale(1.02);
+     }
+ 
+ .movies_row:hover .movies_list:not(:hover) {
+     opacity: 0.5;
+     transform: scale(0.9);
+ }
+ .bg_lightgrey{
+  background-color: #F8F8F8;
+ }
+
+.users_table tbody tr:nth-of-type(even) {
+  background: #f6f3f2;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.users_table tr:hover {
+  background-color: #f6f3f2;
+  --bs-table-hover-bg: none;
+}
+.users_table tr td{
+  padding: 1rem;
+  vertical-align: middle;
+}
+.users_table thead{
+  background-color: #f6f3f2;
+}
+.users_table th{
+  padding: 1rem;
+}
+.content_scroll {
+  max-height: 65vh;
+  overflow: auto;
+}
+.users_table thead {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+.btn_outline{
+  border: 2px solid #0c5397;
+  color: #0c5397 !important;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.btn_secondary{
+  background-color: #0c5397 ;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white !important;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.fs-30{
+  font-size: 30px;
+}
+.fw-600{
+  font-weight: 600;
+}
+.enquiry-form{
+  background: white;
+    border-radius: 6px;
+    padding: 35px 40px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.enquiry-form input.form-control{
+  height: 45px;
+}
+.login_bg{
+  background: url(../public/curve.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.icon_arrow{
+  position: relative;
+  top: 3px;
+  background-color: #0c5397;
   color: white;
+  padding: 4px;
+  border-radius: 16px;
+  margin-right: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.backlogin_card{
+  background: hsla(0, 0%, 100%, .8);
+    padding: 3rem;
+    max-width: 600px;
+    backdrop-filter: blur(32px);
+    border-radius: 8px;
+    margin: 0 auto;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.backlogin_bg{
+  background: url(../public/circle.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
