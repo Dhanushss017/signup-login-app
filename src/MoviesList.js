@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MoviesList = () => {
   const [movies, setMovies] = useState([]);
@@ -47,7 +47,7 @@ const MoviesList = () => {
             Please Login to view the movies list
           </h2>
           <div className="text-center mt-4">
-            <button className='btn btn_outline' onClick={() => navigate("/login")}>Go to Login</button>
+            <button className='btn btn_outline' onClick={() => navigate("/")}>Go to Login</button>
           </div>
             </div>
           
@@ -59,7 +59,7 @@ const MoviesList = () => {
  
   const handleLogout = () => {
     localStorage.removeItem("token"); 
-    navigate("/login"); 
+    navigate("/"); 
   };
 
   
@@ -87,9 +87,9 @@ const MoviesList = () => {
       <div className="container">
         <div className="d-flex mb-5 justify-content-end align-items-center">
           <div className="d-flex gap-4">
-            <a className="btn shadow-none btn_outline" href="/registered-user">
+            <Link className="btn shadow-none btn_outline" to="/registered-user">
               Registered User
-            </a>
+            </Link>
             <div>
               <div className="dropdown">
                 <button
@@ -105,12 +105,12 @@ const MoviesList = () => {
                     <a className="dropdown-item cursor-pointer">Blogs</a>
                   </li>
                   <li>
-                    <a
+                    <button
                       className="dropdown-item cursor-pointer"
                       onClick={handleLogout}
                     >
                       Logout
-                    </a>
+                    </button>
                   </li>
                  
                 </ul>
@@ -121,7 +121,7 @@ const MoviesList = () => {
 
         <div className="row mt-4 movies_row">
           {movies.map((movie, index) => (
-            <div className="col-md-3 movies_list mb-4" key={index}>
+            <div className="col-md-4 col-xl-3 movies_list mb-4" key={index}>
               <div className="card movies_card border-0 h-100">
                 <img
                   src={movie.poster ? movie.poster : placeholderImage}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -94,10 +94,10 @@ const Login = () => {
                 </div>
                 <div className=" mt-2">
                   Don't have an account?
-                  <a href="/signup" className="text-danger">
-                    {" "}
+                  <Link to="/signup" className="text-danger ms-1">
+                    
                     Sign up
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -88,7 +88,7 @@ const App = () => {
             <div className="text-center mt-4">
               <button
                 className="btn btn_outline"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/")}
               >
                 Go to Login
               </button>
@@ -103,9 +103,9 @@ const App = () => {
     <section className="py-5">
       <div className="container">
         <h1 className="mb-4 fs-30 fw-600">
-          <a href="/movieslist">
+          <Link to="/movieslist">
             <i className="material-icons icon_arrow">arrow_back</i>
-          </a>
+          </Link>
           Registered Users
         </h1>
         <div className="table-responsive content_scroll">
