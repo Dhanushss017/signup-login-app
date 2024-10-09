@@ -106,7 +106,7 @@ const Signup = () => {
 
         </div>
         <div className="mt-3 text-end">
-                        Already have an account? <a className="text_primary" href="/login">Log in</a> 
+                        Already have an account? <a className="text-danger" href="/">Log in</a> 
                     </div>
                     </div>
         </div>
