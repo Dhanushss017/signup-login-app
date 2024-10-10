@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  
+  const [errors, setErrors] = useState({
+    username: "",
+    password: ""
+  });
+  
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -15,6 +22,7 @@ const Login = () => {
       ...formData,
       [name]: value,
     });
+    setErrors({ ...errors, [name]: "" }); 
   };
 
   const handleSubmit = async (e) => {
@@ -27,13 +35,22 @@ const Login = () => {
       );
       const { token } = response.data;
 
-      // Save the token to localStorage or sessionStorage
+     
       localStorage.setItem("token", token);
 
-      // Redirect to the movies list page
+      
       navigate("/movieslist");
     } catch (error) {
-      setMessage(error.response.data.error || "Something went wrong");
+      const errorMsg = error.response.data.error || "Something went wrong";
+      if (errorMsg === "Invalid credentials") {
+       
+        setErrors({
+          username: "Invalid credentials",
+          password: "Invalid credentials",
+        });
+      } else {
+        setMessage(errorMsg);
+      }
     }
   };
 
@@ -50,28 +67,35 @@ const Login = () => {
                 </p>
 
                 <div className="col-md-12 mb-3">
-                  <label className="">Username</label>
+                  <label>Username</label>
                   <input
                     type="text"
-                    className="form-control shadow-none"
+                    className={`form-control shadow-none ${errors.username && "is-invalid"}`}
                     name="username"
                     value={formData.username}
                     onChange={handleChange}
                     required
                   />
+                  {errors.username && (
+                    <div className="invalid-feedback">{errors.username}</div>
+                  )}
                 </div>
 
                 <div className="col-md-12 mb-3">
-                  <label>Password:</label>
+                  <label>Password</label>
                   <input
                     type="password"
-                    className="form-control shadow-none"
+                    className={`form-control shadow-none ${errors.password && "is-invalid"}`}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     required
                   />
+                  {errors.password && (
+                    <div className="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
+
                 <div className="d-flex justify-content-between">
                   <div className="form-check">
                     <input
@@ -79,7 +103,7 @@ const Login = () => {
                       type="checkbox"
                       value=""
                     />
-                    <label className="form-check-label" for="remember">
+                    <label className="form-check-label" htmlFor="remember">
                       Remember me
                     </label>
                   </div>
@@ -87,6 +111,7 @@ const Login = () => {
                     Forgot your password?
                   </a>
                 </div>
+
                 <div className="mt-4">
                   <button className="btn btn_secondary w-100" type="submit">
                     Submit
@@ -95,7 +120,6 @@ const Login = () => {
                 <div className=" mt-2">
                   Don't have an account?
                   <Link to="/signup" className="text-danger ms-1">
-                    
                     Sign up
                   </Link>
                 </div>
