@@ -17,12 +17,14 @@ font-weight: 600;
 .movies_card{
   -webkit-box-shadow: 0 50px 80px 0 rgb(0 11 40 / 8%);
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  cursor: pointer;
 }
 
 .movies_row {
   pointer-events: none;
   transition: all 0.4s;
+ }
+ .bg_lightblue{
+  background-color: #ecf1fa;
  }
  
  .movies_list {
@@ -131,6 +133,11 @@ font-weight: 600;
 }
 .backlogin_bg{
   background: url(../public/circle.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg_blobimg{
+  background: url(../public/animated-blob.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }

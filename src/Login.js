@@ -30,7 +30,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://node-app-production-738d.up.railway.app/login",
+        "http://localhost:3001/login",
         formData
       );
       const { token } = response.data;
@@ -55,7 +55,7 @@ const Login = () => {
   };
 
   return (
-    <section className="py-5 login_bg vh-100 d-flex align-items-center">
+    <section className="py-5 bg_blobimg vh-100 d-flex align-items-center">
       <div className="container">
         <div className="login-container">
           <form onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ const Login = () => {
                 </p>
 
                 <div className="col-md-12 mb-3">
-                  <label>Username</label>
+                  <label>Username <span>*</span></label>
                   <input
                     type="text"
                     className={`form-control shadow-none ${errors.username && "is-invalid"}`}
@@ -82,7 +82,7 @@ const Login = () => {
                 </div>
 
                 <div className="col-md-12 mb-3">
-                  <label>Password</label>
+                  <label>Password <span>*</span></label>
                   <input
                     type="password"
                     className={`form-control shadow-none ${errors.password && "is-invalid"}`}
@@ -107,9 +107,7 @@ const Login = () => {
                       Remember me
                     </label>
                   </div>
-                  <a href="" className="text_primary">
-                    Forgot your password?
-                  </a>
+                 
                 </div>
 
                 <div className="mt-4">

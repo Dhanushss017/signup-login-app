@@ -17,7 +17,7 @@ const App = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "https://node-app-production-738d.up.railway.app/users"
+        "http://localhost:3001/users"
       );
       console.log("API Response:", response.data);
       setUsers(Array.isArray(response.data.users) ? response.data.users : []);
@@ -48,7 +48,7 @@ const App = () => {
 
     try {
       const response = await axios.patch(
-        `https://node-app-production-738d.up.railway.app/users/${editingUser._id}`,
+        `http://localhost:3001/users/${editingUser._id}`,
         newUserData
       );
       console.log("Update Response:", response.data);

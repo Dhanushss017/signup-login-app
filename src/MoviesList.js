@@ -9,20 +9,15 @@ const MoviesList = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
- 
   const token = localStorage.getItem("token");
 
- 
   const fetchMovies = async () => {
     try {
-      const response = await axios.get(
-        "https://node-app-production-738d.up.railway.app/movies",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        }
-      );
+      const response = await axios.get("http://localhost:3001/movies", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setMovies(response.data);
     } catch (err) {
       setError(err.message);
@@ -37,32 +32,30 @@ const MoviesList = () => {
     }
   }, [token]);
 
-  
   if (!token) {
     return (
       <section className="vh-100 backlogin_bg d-flex align-items-center">
         <div className="container">
-            <div className="backlogin_card">
+          <div className="backlogin_card">
             <h2 className="fs-30 text-center fw-300">
-            Please Login to view the movies list
-          </h2>
-          <div className="text-center mt-4">
-            <button className='btn btn_outline' onClick={() => navigate("/")}>Go to Login</button>
-          </div>
+              Please Login to view the movies list
+            </h2>
+            <div className="text-center mt-4">
+              <button className="btn btn_outline" onClick={() => navigate("/")}>
+                Go to Login
+              </button>
             </div>
-          
+          </div>
         </div>
       </section>
     );
   }
 
- 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
-    navigate("/"); 
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
-  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -71,7 +64,6 @@ const MoviesList = () => {
     return <div>Error: {error}</div>;
   }
 
- 
   const placeholderImage =
     "https://via.placeholder.com/300x450?text=No+Image+Available";
   const truncateTitle = (title) => {
@@ -80,6 +72,11 @@ const MoviesList = () => {
       return `${words.slice(0, 3).join(" ")}...`;
     }
     return title;
+  };
+
+
+  const handleMovieClick = (movieId) => {
+    navigate(`/movie/${movieId}`);
   };
 
   return (
@@ -112,17 +109,20 @@ const MoviesList = () => {
                       Logout
                     </button>
                   </li>
-                 
                 </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="row mt-4 movies_row">
+        <div className="row mt-4  movies_row">
           {movies.map((movie, index) => (
-            <div className="col-md-4 col-xl-3 movies_list mb-4" key={index}>
-              <div className="card movies_card border-0 h-100">
+            <div
+              className="col-md-4 col-xl-3 movies_list mb-4"
+              key={index}
+              onClick={() => handleMovieClick(movie._id)} 
+            >
+              <div className="card cursor-pointer movies_card border-0 h-100">
                 <img
                   src={movie.poster ? movie.poster : placeholderImage}
                   alt={movie.title}

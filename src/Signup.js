@@ -15,8 +15,11 @@ const Signup = () => {
     username: '',
     email: '',
     phone: '',
+    profession: '',
     password: ''
   });
+  console.log(errors);
+  
 
   const [message, setMessage] = useState('');
   const navigate = useNavigate(); 
@@ -29,28 +32,103 @@ const Signup = () => {
     });
     setErrors({
       ...errors,
-      [name]: '' 
+      [name]: '' // Clear errors when the user starts typing
     });
   };
 
+  const validateForm = () => {
+    let formIsValid = true;
+    const newErrors = {};
+
+    if (!formData.username) {
+      formIsValid = false;
+      newErrors.username = 'Username is required';
+    }
+
+    if (!formData.email) {
+      formIsValid = false;
+      newErrors.email = 'Email is required';
+    }
+
+    if (!formData.phone) {
+      formIsValid = false;
+      newErrors.phone = 'Phone is required';
+    }
+
+    if (!formData.profession) {
+      formIsValid = false;
+      newErrors.profession = 'Profession is required';
+    }
+
+    if (!formData.password) {
+      formIsValid = false;
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+    return formIsValid;
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     try {
+  //       const response = await axios.post('http://localhost:3001/signup', formData);
+  //       setMessage(response.data.message);
+  //       navigate('/login');
+  //     } catch (error) {
+  //       const errorMsg = error.response.data.error;
+  //       if (errorMsg === "Email already exists") {
+  //         setErrors({
+  //           ...errors,
+  //           email: "Email already exists"
+  //         });
+  //         if(errorMsg === "Username already exists"){
+  //           setErrors({
+  //             ...errors,
+  //             username: "Email already exists"
+  //           });
+  //         }
+  //         if(errorMsg === "Phone number already exists"){
+  //           setErrors({
+  //             ...errors,
+  //             phone: "Email already exists"
+  //           });
+  //         }
+          
+  //       } else {
+  //         setMessage(errorMsg || "Something went wrong");
+  //       }
+  //     }
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('https://node-app-production-738d.up.railway.app/signup', formData);
-      setMessage(response.data.message);
-      navigate('/login');
-    } catch (error) {
-      const errorMsg = error.response.data.error;
-      if (errorMsg === "Email already exists") {
-        setErrors({
-          ...errors,
-          email: "Email already exists"
-        });
-      } else {
-        setMessage(errorMsg || "Something went wrong");
+    if (validateForm()) {
+      try {
+        const response = await axios.post('http://localhost:3001/signup', formData);
+        setMessage(response.data.message);
+        navigate('/');
+      } catch (error) {
+        const errorMsg = error.response.data.error;
+        const newErrors = { ...errors };
+  
+        if (errorMsg === "Email already exists") {
+          newErrors.email = "Email already exists";
+        }
+        if (errorMsg === "Username already exists") {
+          newErrors.username = "Username already exists";
+        }
+        if (errorMsg === "Phone number already exists") {
+          newErrors.phone = "Phone number already exists";
+        }
+  
+        setErrors(newErrors); // Update the errors state with all the relevant messages
       }
     }
   };
+  
 
   return (
     <section className="py-5 login_bg vh-100 d-flex align-items-center">
@@ -65,18 +143,21 @@ const Signup = () => {
                 <h2 className="text-white fs-30 mb-4 fw-600 mt-2">Create An Account</h2>
                 <div className="enquiry-form">
                   <div className="mb-3">
-                    <label>Username:</label>
+                    <label>Username <span>*</span></label>
                     <input
-                      className="form-control"
+                      className={`form-control ${errors.username ? 'is-invalid' : ''}`}
                       type="text"
                       name="username"
                       value={formData.username}
                       onChange={handleChange}
                       required
                     />
+                    {errors.username && (
+                      <div className="invalid-feedback">{errors.username}</div>
+                    )}
                   </div>
                   <div className="mb-3">
-                    <label>Email:</label>
+                    <label>Email <span>*</span></label>
                     <input
                       className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                       type="email"
@@ -90,42 +171,51 @@ const Signup = () => {
                     )}
                   </div>
                   <div className="mb-3">
-                    <label>Phone:</label>
+                    <label>Phone <span>*</span></label>
                     <input
-                      className="form-control"
+                      className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
                       type="text"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       required
                     />
+                    {errors.phone && (
+                      <div className="invalid-feedback">{errors.phone}</div>
+                    )}
                   </div>
                   <div className="mb-3">
-                    <label>Profession:</label>
+                    <label>Profession <span>*</span></label>
                     <select
-                      className="form-control"
+                      className={`form-control  ${errors.profession ? 'is-invalid' : ''}`}
                       name="profession"
                       value={formData.profession}
                       onChange={handleChange}
                       required
                     >
-                      <option value="">Select Profession</option>
+                      <option value="">Select Profession </option>
                       <option value="Student">Student</option>
                       <option value="Engineer">Engineer</option>
                       <option value="Doctor">Doctor</option>
                       <option value="Teacher">Teacher</option>
                     </select>
+                    {errors.profession && (
+                      <div className="invalid-feedback">{errors.profession}</div>
+                    )}
                   </div>
                   <div className="mb-3">
-                    <label>Password:</label>
+                    <label>Password <span>*</span></label>
                     <input
-                      className="form-control"
+                      className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                       type="password"
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
                       required
                     />
+                    {errors.password && (
+                      <div className="invalid-feedback">{errors.password}</div>
+                    )}
                   </div>
                   <div className="mt-4">
                     <button className="btn btn_secondary w-100" type="submit">
@@ -140,7 +230,7 @@ const Signup = () => {
               </div>
             </div>
           </form>
-          {message && <p>{message}</p>}
+          
         </div>
       </div>
     </section>
