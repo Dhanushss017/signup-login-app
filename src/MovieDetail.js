@@ -11,7 +11,7 @@ const MovieDetail = () => {
 
   const fetchMovieDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/movies/${id}`, {
+      const response = await axios.get(`https://node-app-production-738d.up.railway.app/movies/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

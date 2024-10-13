@@ -30,7 +30,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/login",
+        "https://node-app-production-738d.up.railway.app/login",
         formData
       );
       const { token } = response.data;

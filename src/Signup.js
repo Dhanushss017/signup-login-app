@@ -73,7 +73,7 @@ const Signup = () => {
   //   e.preventDefault();
   //   if (validateForm()) {
   //     try {
-  //       const response = await axios.post('http://localhost:3001/signup', formData);
+  //       const response = await axios.post('https://node-app-production-738d.up.railway.app/signup', formData);
   //       setMessage(response.data.message);
   //       navigate('/login');
   //     } catch (error) {
@@ -107,7 +107,7 @@ const Signup = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post('http://localhost:3001/signup', formData);
+        const response = await axios.post('https://node-app-production-738d.up.railway.app/signup', formData);
         setMessage(response.data.message);
         navigate('/');
       } catch (error) {
